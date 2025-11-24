@@ -138,7 +138,7 @@
         }
         
         .logo span {
-            color: var(--accent);
+            color: #ff6b6b;
         }
         
         .nav-links {
@@ -231,7 +231,7 @@
         
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary) 100%, var(--secondary) 100%);
+            background: linear-gradient(135deg, #005792 100%, var(--secondary) 100%);
             color: white;
             padding: 150px 0 100px;
             text-align: center;
@@ -269,10 +269,17 @@
             animation: fadeInUp 1s ease 0.4s both;
             color: var(--text-color);
         }
+           .hero p1 {
+            font-size: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            animation: fadeInUp 1s ease 0.4s both;
+            color: white;
+        }
         
         .cta-button {
             display: inline-block;
-            background-color: var(--accent);
+            background-color: #ff6b6b;
             color: white;
             padding: 12px 30px;
             border-radius: 30px;
@@ -323,7 +330,7 @@
             /* match CTA sizing and shape */
             padding: 12px 30px;
             border-radius: 30px;
-            background-color: var(--accent);
+            background-color: #ff6b6b;
             color: white;
             font-weight: 600;
         }
@@ -333,11 +340,44 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        @media (max-width: 480px) {
-            .hero-actions {
-                flex-direction: column;
-            }
-        }
+    @media (max-width: 480px) {
+    .container{
+        width: 94%;
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    /* Big button */
+    .hero-actions .primary {
+        width: 100%;
+        max-width: 280px;
+        padding: 8px 16px;
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    /* Two smaller buttons in one row */
+    .hero-row {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    /* Small buttons same width */
+    .hero-row .cta-button {
+        flex: 1;
+        text-align: center;
+        padding: 10px 6px;
+    }
+    }
         
         /* Stats Section */
         .stats {
@@ -616,7 +656,7 @@
         
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, #005792 100%, var(--secondary) 100%);
             color: white;
             padding: 80px 0;
             text-align: center;
@@ -955,7 +995,7 @@
     <!-- Header & Navigation -->
     <header>
         <div class="container nav-container">
-            <a href="https://bni-bourk.github.io/industrial-automation-course/" class="logo">
+            <a href="#" class="logo">
                 <i class="fas fa-industry logo-icon"></i>
                 <span data-translate="logo">Automatisation</span>
             </a>
@@ -979,16 +1019,24 @@
     <section class="hero" id="home">
         <div class="container hero-content">
             <h1 data-translate="hero-title">Fondamentaux de l'Automatisation Industrielle</h1>
-            <p data-translate="hero-description">Maîtrisez la programmation d'automates, les systèmes de contrôle avancés et les communications industrielles essentielles pour une carrière très demandée.</p>
-            <div class="hero-actions">
-                <a href="#modules" class="cta-button" data-translate="hero-cta">Explorer les modules</a>
+            <p1 data-translate="hero-description">Maîtrisez la programmation d'automates, les systèmes de contrôle avancés et les communications industrielles essentielles pour une carrière très demandée.</p1>
+           <div class="hero-actions">
 
-                <!-- Portfolio Link in Hero Section -->
-                <a href="https://bnitech.it.com/" target="_blank" class="portfolio-link cta-button">
-                    <i class="fas fa-external-link-alt"></i>
-                    <span data-translate="portfolio-link">Voir mon portfolio</span>
-                </a>
-            </div>
+    <!-- Big button -->
+    <a href="Enregistrement sitweb.html" class="cta-button primary">
+        Commencer maintenant
+    </a>
+
+    <!-- Two small buttons -->
+    <div class="hero-row">
+        <a href="#modules" class="cta-button">Explorer les modules</a>
+
+        <a href="https://bnitech.it.com/" target="_blank" class="cta-button">
+            Voir mon portfolio
+        </a>
+    </div>
+
+</div>         
         </div>
         <div class="container stats-container">
             <div class="stat-item fade-in">
@@ -1706,5 +1754,4 @@
         updateLanguage('fr');
     </script>
 </body>
-
 </html>
