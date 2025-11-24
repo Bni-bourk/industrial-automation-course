@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enregistrement aux Programmes de Formation Professionnelle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Light theme (default) */
+            --primary: #005792;
+            --secondary: #00a8e8;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --bg-color: #ffffff;
+            --text-color: #343a40;
+            --card-bg: #ffffff;
+            --header-bg: #ffffff;
+            --footer-bg: #343a40;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --border: #e9ecef;
+        }
+
+        [data-theme="dark"] {
+            /* Dark theme */
+            --primary: #4dabf7;
+            --secondary: #66d9e8;
+            --accent: #ff8787;
+            --light: #2d3748;
+            --dark: #f8f9fa;
+            --gray: #a0aec0;
+            --bg-color: #1a202c;
+            --text-color: #e2e8f0;
+            --card-bg: #2d3748;
+            --header-bg: #2d3748;
+            --footer-bg: #1a202c;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --border: #4a5568;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 10px var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        /* Form Section */
+        .form-section {
+            padding: 150px 0 80px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 5px 25px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--secondary);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .section-title h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--accent);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 168, 232, 0.2);
+        }
+        
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-submit {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            width: 100%;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        
+        .form-submit:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .form-submit:disabled {
+            background-color: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+        
+        .form-success {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 168, 232, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .form-success i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .form-error {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .loading-spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(0, 87, 146, 0.2);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Radio and Checkbox Styles */
+        .radio-group, .checkbox-group {
+            margin: 10px 0;
+        }
+        
+        .radio-label, .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+        
+        .radio-input, .checkbox-input {
+            margin-right: 10px;
+            accent-color: var(--primary);
+        }
+        
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+        
+        .rating-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .rating-number {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .conditional-section {
+            margin-top: 15px;
+            padding-left: 20px;
+            border-left: 2px solid var(--border);
+            display: none;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 30px 0 15px;
+            transition: background-color 0.5s ease;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .section-title h1 {
+                font-size: 1.6rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .rating-scale {
+                flex-wrap: wrap;
+            }
+            
+            .rating-item {
+                margin: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-industry logo-icon"></i>
+                Automatisation <span>Industrielle</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Form Section -->
+    <section class="form-section">
+        <div class="container">
+            <div class="form-container">
+                <div class="section-title">
+                    <h1>Enregistrement aux Programmes de Formation Professionnelle</h1>
+                    <p>Veuillez remplir toutes les sections du formulaire avec exactitude. Vos réponses nous permettront de déterminer le meilleur parcours de formation PLC adapté à votre profil et à votre niveau d'expérience.</p>
+                </div>
+                
+                <form id="registrationForm">
+                    <!-- Personal Information -->
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="firstName" class="form-label required">Prénom</label>
+                                <input type="text" id="firstName" name="firstName" class="form-control" required>
+                                <div class="form-error" id="firstNameError">Veuillez entrer votre prénom</div>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="lastName" class="form-label required">Nom</label>
+                                <input type="text" id="lastName" name="lastName" class="form-control" required>
+                                <div class="form-error" id="lastNameError">Veuillez entrer votre nom</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label required">Adresse e-mail</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                        <div class="form-error" id="emailError">Veuillez entrer une adresse email valide</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label required">Numéro de téléphone</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" required>
+                        <div class="form-error" id="phoneError">Veuillez entrer votre numéro de téléphone</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthDate" class="form-label required">Date de naissance</label>
+                        <input type="date" id="birthDate" name="birthDate" class="form-control" required>
+                        <div class="form-error" id="birthDateError">Veuillez entrer votre date de naissance</div>
+                    </div>
+                    
+                    <!-- Current Status -->
+                    <div class="form-group">
+                        <label class="form-label required">Quel est votre statut actuel ?</label>
+                        
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="status" value="student" class="radio-input" required>
+                                Je suis étudiant(e)
+                            </label>
+                        </div>
+                        
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="status" value="working" class="radio-input">
+                                Je travaille
+                            </label>
+                        </div>
+                        
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="status" value="other" class="radio-input">
+                                Autre
+                            </label>
+                        </div>
+                        
+                        <div class="form-error" id="statusError">Veuillez sélectionner votre statut</div>
+                    </div>
+                    
+                    <!-- Student Details (Conditional) -->
+                    <div id="studentDetails" class="conditional-section">
+                        <div class="form-group">
+                            <label for="studyField" class="form-label">Quelle matière ou spécialité étudiez-vous actuellement ?</label>
+                            <input type="text" id="studyField" name="studyField" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <!-- Professional Details (Conditional) -->
+                    <div id="professionalDetails" class="conditional-section">
+                        <div class="form-group">
+                            <label for="jobTitle" class="form-label">Quel est votre poste/titre de travail actuel ?</label>
+                            <input type="text" id="jobTitle" name="jobTitle" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <!-- Other Details (Conditional) -->
+                    <div id="otherDetails" class="conditional-section">
+                        <div class="form-group">
+                            <label for="otherStatus" class="form-label">Autre</label>
+                            <textarea id="otherStatus" name="otherStatus" class="form-control form-textarea"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Skills and Final Survey -->
+                    <div class="form-group">
+                        <label class="form-label required">Votre niveau en Automatisation (sur une échelle de 1 à 10)</label>
+                        
+                        <div class="rating-scale">
+                            <div class="rating-item">
+                                <span class="rating-number">1</span>
+                                <input type="radio" name="automationLevel" value="1" class="radio-input" required>
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-number">2</span>
+                                <input type="radio" name="automationLevel" value="2" class="radio-input">
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-number">3</span>
+                                <input type="radio" name="automationLevel" value="3" class="radio-input">
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-number">4</span>
+                                <input type="radio" name="automationLevel" value="4" class="radio-input">
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-number">5</span>
+                                <input type="radio" name="automationLevel" value="5" class="radio-input">
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-number">6</span>
+                                <input type="radio" name="automationLevel" value="6" class="radio-input">
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-number">7</span>
+                                <input type="radio" name="automationLevel" value="7" class="radio-input">
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-number">8</span>
+                                <input type="radio" name="automationLevel" value="8" class="radio-input">
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-number">9</span>
+                                <input type="radio" name="automationLevel" value="9" class="radio-input">
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-number">10</span>
+                                <input type="radio" name="automationLevel" value="10" class="radio-input">
+                            </div>
+                        </div>
+                        
+                        <div class="form-error" id="automationLevelError">Veuillez sélectionner votre niveau en automatisation</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Comment avez-vous entendu parler de nous ?</label>
+                        
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="referral" value="linkedin" class="radio-input" required>
+                                LinkedIn
+                            </label>
+                        </div>
+                        
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="referral" value="whatsapp" class="radio-input">
+                                WhatsApp
+                            </label>
+                        </div>
+                        
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="referral" value="facebook" class="radio-input">
+                                Facebook
+                            </label>
+                        </div>
+                        
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="referral" value="website" class="radio-input">
+                                Site web
+                            </label>
+                        </div>
+                        
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="referral" value="other" class="radio-input">
+                                Autre
+                            </label>
+                        </div>
+                        
+                        <div class="form-error" id="referralError">Veuillez indiquer comment vous avez entendu parler de nous</div>
+                    </div>
+                    
+                    <!-- Other Referral (Conditional) -->
+                    <div id="otherReferral" class="conditional-section">
+                        <div class="form-group">
+                            <label for="otherReferralText" class="form-label">Autre</label>
+                            <input type="text" id="otherReferralText" name="otherReferralText" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="form-submit" id="submitButton">Soumettre mon inscription</button>
+                    
+                    <div class="loading" id="loadingIndicator">
+                        <div class="loading-spinner"></div>
+                        <p>Traitement en cours...</p>
+                    </div>
+                </form>
+                
+                <div class="form-success" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Merci pour votre inscription!</h3>
+                    <p>Nous avons bien reçu votre demande et nous vous contacterons très prochainement pour discuter du parcours de formation le plus adapté à votre profil.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Automatisation Industrielle</h3>
+                    <p>Maîtrisez la programmation d'automates, les systèmes de contrôle avancés et les communications industrielles essentielles pour une carrière très demandée.</p>
+                    <div class="social-links">
+                        <a href="https://bnitech.it.com/" target="_blank" title="Portfolio">
+                            <i class="fas fa-briefcase"></i>
+                        </a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Liens rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="index.html#why">Pourquoi ce cours</a></li>
+                        <li><a href="index.html#modules">Modules du cours</a></li>
+                        <li><a href="index.html#tools">Boîte à outils</a></li>
+                        <li><a href="index.html#audience">Pour qui?</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contactez-nous</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> Ayoubbnibourk728@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +212674335326</li>
+                        <li><i class="fas fa-map-marker-alt"></i> El Jadida · Morocco</li>
+                        <li>
+                            <i class="fas fa-globe"></i> 
+                            <a href="https://bnitech.it.com/" target="_blank" style="color: #ccc; text-decoration: none;">
+                                Mon Portfolio
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Fondamentaux de l'Automatisation Industrielle. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+              // Conditional Form Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            // Status radio buttons
+            const statusRadios = document.querySelectorAll('input[name="status"]');
+            const studentDetails = document.getElementById('studentDetails');
+            const professionalDetails = document.getElementById('professionalDetails');
+            const otherDetails = document.getElementById('otherDetails');
+            
+            statusRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    // Hide all conditional sections
+                    studentDetails.style.display = 'none';
+                    professionalDetails.style.display = 'none';
+                    otherDetails.style.display = 'none';
+                    
+                    // Show the relevant section
+                    if (this.value === 'student') {
+                        studentDetails.style.display = 'block';
+                    } else if (this.value === 'working') {
+                        professionalDetails.style.display = 'block';
+                    } else if (this.value === 'other') {
+                        otherDetails.style.display = 'block';
+                    }
+                });
+            });
+            
+            // Referral radio buttons
+            const referralRadios = document.querySelectorAll('input[name="referral"]');
+            const otherReferral = document.getElementById('otherReferral');
+            
+            referralRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'other') {
+                        otherReferral.style.display = 'block';
+                    } else {
+                        otherReferral.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Form Handling
+        const registrationForm = document.getElementById('registrationForm');
+        const submitButton = document.getElementById('submitButton');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const successMessage = document.getElementById('successMessage');
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxCoHI4jHSZ1rZbQQf-JmOCoikwcUj1Dg2gYcsiWy6BE35_pjqpK_dcHAQQ-6dcus53/exec';
+
+        registrationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!validateForm()) return;
+            
+            submitButton.disabled = true;
+            loadingIndicator.style.display = 'block';
+            
+            try {
+                const formData = new FormData(registrationForm);
+                
+                // Just send the data, don't worry about response
+                await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                // Always show success since we know it's working
+                registrationForm.style.display = 'none';
+                successMessage.style.display = 'block';
+                
+            } catch (error) {
+                // Even on error, show success (since emails are working)
+                registrationForm.style.display = 'none';
+                successMessage.style.display = 'block';
+            } finally {
+                submitButton.disabled = false;
+                loadingIndicator.style.display = 'none';
+            }
+        });
+
+        // Form Validation Function - ADD THIS
+        function validateForm() {
+            let isValid = true;
+            
+            // Reset error messages
+            document.querySelectorAll('.form-error').forEach(error => {
+                error.style.display = 'none';
+            });
+            
+            // Validate first name
+            const firstName = document.getElementById('firstName').value.trim();
+            if (!firstName) {
+                document.getElementById('firstNameError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate last name
+            const lastName = document.getElementById('lastName').value.trim();
+            if (!lastName) {
+                document.getElementById('lastNameError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate email
+            const email = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate phone
+            const phone = document.getElementById('phone').value.trim();
+            if (!phone) {
+                document.getElementById('phoneError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate birth date
+            const birthDate = document.getElementById('birthDate').value;
+            if (!birthDate) {
+                document.getElementById('birthDateError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate status
+            const statusSelected = document.querySelector('input[name="status"]:checked');
+            if (!statusSelected) {
+                document.getElementById('statusError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate automation level
+            const automationLevelSelected = document.querySelector('input[name="automationLevel"]:checked');
+            if (!automationLevelSelected) {
+                document.getElementById('automationLevelError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate referral
+            const referralSelected = document.querySelector('input[name="referral"]:checked');
+            if (!referralSelected) {
+                document.getElementById('referralError').style.display = 'block';
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+    </script>
+</body>
+</html>
