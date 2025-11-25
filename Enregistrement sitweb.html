@@ -82,7 +82,7 @@
         }
         
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--primary);
             text-decoration: none;
@@ -91,12 +91,38 @@
         }
         
         .logo-icon {
-            margin-right: 10px;
+            margin-right: 5px;
             font-size: 1.8rem;
         }
         
         .logo span {
             color: var(--accent);
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1px;
+        }
+        
+        .theme-toggle, .lang-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .theme-toggle:hover, .lang-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        [data-theme="dark"] .theme-toggle:hover, 
+        [data-theme="dark"] .lang-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
         /* Form Section */
@@ -425,8 +451,17 @@
         <div class="container nav-container">
             <a href="index.html" class="logo">
                 <i class="fas fa-industry logo-icon"></i>
-                Automatisation <span>Industrielle</span>
+                <span data-key="siteName">Automatisation <span>Industrielle</span></span>
             </a>
+            <div class="header-controls">
+                <button class="lang-toggle" id="langToggle" title="Switch Language">
+                   <!-- <i class="fas fa-language"></i>-->
+                    <span data-key="currentLang">FR</span>
+                </button>
+                <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -435,8 +470,8 @@
         <div class="container">
             <div class="form-container">
                 <div class="section-title">
-                    <h1>Enregistrement aux Programmes de Formation Professionnelle</h1>
-                    <p>Veuillez remplir toutes les sections du formulaire avec exactitude. Vos réponses nous permettront de déterminer le meilleur parcours de formation PLC adapté à votre profil et à votre niveau d'expérience.</p>
+                    <h1 data-key="formTitle">Enregistrement aux Programmes de Formation Professionnelle</h1>
+                    <p data-key="formDescription">Veuillez remplir toutes les sections du formulaire avec exactitude. Vos réponses nous permettront de déterminer le meilleur parcours de formation PLC adapté à votre profil et à votre niveau d'expérience.</p>
                 </div>
                 
                 <form id="registrationForm">
@@ -444,70 +479,70 @@
                     <div class="form-row">
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="firstName" class="form-label required">Prénom</label>
+                                <label for="firstName" class="form-label required" data-key="firstName">Prénom</label>
                                 <input type="text" id="firstName" name="firstName" class="form-control" required>
-                                <div class="form-error" id="firstNameError">Veuillez entrer votre prénom</div>
+                                <div class="form-error" id="firstNameError" data-key="firstNameError">Veuillez entrer votre prénom</div>
                             </div>
                         </div>
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="lastName" class="form-label required">Nom</label>
+                                <label for="lastName" class="form-label required" data-key="lastName">Nom</label>
                                 <input type="text" id="lastName" name="lastName" class="form-control" required>
-                                <div class="form-error" id="lastNameError">Veuillez entrer votre nom</div>
+                                <div class="form-error" id="lastNameError" data-key="lastNameError">Veuillez entrer votre nom</div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="email" class="form-label required">Adresse e-mail</label>
+                        <label for="email" class="form-label required" data-key="email">Adresse e-mail</label>
                         <input type="email" id="email" name="email" class="form-control" required>
-                        <div class="form-error" id="emailError">Veuillez entrer une adresse email valide</div>
+                        <div class="form-error" id="emailError" data-key="emailError">Veuillez entrer une adresse email valide</div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="phone" class="form-label required">Numéro de téléphone</label>
+                        <label for="phone" class="form-label required" data-key="phone">Numéro de téléphone</label>
                         <input type="tel" id="phone" name="phone" class="form-control" required>
-                        <div class="form-error" id="phoneError">Veuillez entrer votre numéro de téléphone</div>
+                        <div class="form-error" id="phoneError" data-key="phoneError">Veuillez entrer votre numéro de téléphone</div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="birthDate" class="form-label required">Date de naissance</label>
+                        <label for="birthDate" class="form-label required" data-key="birthDate">Date de naissance</label>
                         <input type="date" id="birthDate" name="birthDate" class="form-control" required>
-                        <div class="form-error" id="birthDateError">Veuillez entrer votre date de naissance</div>
+                        <div class="form-error" id="birthDateError" data-key="birthDateError">Veuillez entrer votre date de naissance</div>
                     </div>
                     
                     <!-- Current Status -->
                     <div class="form-group">
-                        <label class="form-label required">Quel est votre statut actuel ?</label>
+                        <label class="form-label required" data-key="currentStatus">Quel est votre statut actuel ?</label>
                         
                         <div class="radio-group">
                             <label class="radio-label">
                                 <input type="radio" name="status" value="student" class="radio-input" required>
-                                Je suis étudiant(e)
+                                <span data-key="studentStatus">Je suis étudiant(e)</span>
                             </label>
                         </div>
                         
                         <div class="radio-group">
                             <label class="radio-label">
                                 <input type="radio" name="status" value="working" class="radio-input">
-                                Je travaille
+                                <span data-key="workingStatus">Je travaille</span>
                             </label>
                         </div>
                         
                         <div class="radio-group">
                             <label class="radio-label">
                                 <input type="radio" name="status" value="other" class="radio-input">
-                                Autre
+                                <span data-key="otherStatus">Autre</span>
                             </label>
                         </div>
                         
-                        <div class="form-error" id="statusError">Veuillez sélectionner votre statut</div>
+                        <div class="form-error" id="statusError" data-key="statusError">Veuillez sélectionner votre statut</div>
                     </div>
                     
                     <!-- Student Details (Conditional) -->
                     <div id="studentDetails" class="conditional-section">
                         <div class="form-group">
-                            <label for="studyField" class="form-label">Quelle matière ou spécialité étudiez-vous actuellement ?</label>
+                            <label for="studyField" class="form-label" data-key="studyField">Quelle matière ou spécialité étudiez-vous actuellement ?</label>
                             <input type="text" id="studyField" name="studyField" class="form-control">
                         </div>
                     </div>
@@ -515,7 +550,7 @@
                     <!-- Professional Details (Conditional) -->
                     <div id="professionalDetails" class="conditional-section">
                         <div class="form-group">
-                            <label for="jobTitle" class="form-label">Quel est votre poste/titre de travail actuel ?</label>
+                            <label for="jobTitle" class="form-label" data-key="jobTitle">Quel est votre poste/titre de travail actuel ?</label>
                             <input type="text" id="jobTitle" name="jobTitle" class="form-control">
                         </div>
                     </div>
@@ -523,14 +558,14 @@
                     <!-- Other Details (Conditional) -->
                     <div id="otherDetails" class="conditional-section">
                         <div class="form-group">
-                            <label for="otherStatus" class="form-label">Autre</label>
+                            <label for="otherStatus" class="form-label" data-key="otherStatus">Autre</label>
                             <textarea id="otherStatus" name="otherStatus" class="form-control form-textarea"></textarea>
                         </div>
                     </div>
                     
                     <!-- Skills and Final Survey -->
                     <div class="form-group">
-                        <label class="form-label required">Votre niveau en Automatisation (sur une échelle de 1 à 10)</label>
+                        <label class="form-label required" data-key="automationLevel">Votre niveau en Automatisation (sur une échelle de 1 à 10)</label>
                         
                         <div class="rating-scale">
                             <div class="rating-item">
@@ -575,11 +610,11 @@
                             </div>
                         </div>
                         
-                        <div class="form-error" id="automationLevelError">Veuillez sélectionner votre niveau en automatisation</div>
+                        <div class="form-error" id="automationLevelError" data-key="automationLevelError">Veuillez sélectionner votre niveau en automatisation</div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label required">Comment avez-vous entendu parler de nous ?</label>
+                        <label class="form-label required" data-key="referralSource">Comment avez-vous entendu parler de nous ?</label>
                         
                         <div class="radio-group">
                             <label class="radio-label">
@@ -605,40 +640,40 @@
                         <div class="radio-group">
                             <label class="radio-label">
                                 <input type="radio" name="referral" value="website" class="radio-input">
-                                Site web
+                                <span data-key="website">Site web</span>
                             </label>
                         </div>
                         
                         <div class="radio-group">
                             <label class="radio-label">
                                 <input type="radio" name="referral" value="other" class="radio-input">
-                                Autre
+                                <span data-key="other">Autre</span>
                             </label>
                         </div>
                         
-                        <div class="form-error" id="referralError">Veuillez indiquer comment vous avez entendu parler de nous</div>
+                        <div class="form-error" id="referralError" data-key="referralError">Veuillez indiquer comment vous avez entendu parler de nous</div>
                     </div>
                     
                     <!-- Other Referral (Conditional) -->
                     <div id="otherReferral" class="conditional-section">
                         <div class="form-group">
-                            <label for="otherReferralText" class="form-label">Autre</label>
+                            <label for="otherReferralText" class="form-label" data-key="other">Autre</label>
                             <input type="text" id="otherReferralText" name="otherReferralText" class="form-control">
                         </div>
                     </div>
                     
-                    <button type="submit" class="form-submit" id="submitButton">Soumettre mon inscription</button>
+                    <button type="submit" class="form-submit" id="submitButton" data-key="submitButton">Soumettre mon inscription</button>
                     
                     <div class="loading" id="loadingIndicator">
                         <div class="loading-spinner"></div>
-                        <p>Traitement en cours...</p>
+                        <p data-key="loadingText">Traitement en cours...</p>
                     </div>
                 </form>
                 
                 <div class="form-success" id="successMessage">
                     <i class="fas fa-check-circle"></i>
-                    <h3>Merci pour votre inscription!</h3>
-                    <p>Nous avons bien reçu votre demande et nous vous contacterons très prochainement pour discuter du parcours de formation le plus adapté à votre profil.</p>
+                    <h3 data-key="successTitle">Merci pour votre inscription!</h3>
+                    <p data-key="successMessage">Nous avons bien reçu votre demande et nous vous contacterons très prochainement pour discuter du parcours de formation le plus adapté à votre profil.</p>
                 </div>
             </div>
         </div>
@@ -649,8 +684,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Automatisation Industrielle</h3>
-                    <p>Maîtrisez la programmation d'automates, les systèmes de contrôle avancés et les communications industrielles essentielles pour une carrière très demandée.</p>
+                    <h3 data-key="siteNameFooter">Automatisation Industrielle</h3>
+                    <p data-key="footerDescription">Maîtrisez la programmation d'automates, les systèmes de contrôle avancés et les communications industrielles essentielles pour une carrière très demandée.</p>
                     <div class="social-links">
                         <a href="https://bnitech.it.com/" target="_blank" title="Portfolio">
                             <i class="fas fa-briefcase"></i>
@@ -661,39 +696,230 @@
                     </div>
                 </div>
                 <div class="footer-column">
-                    <h3>Liens rapides</h3>
+                    <h3 data-key="quickLinks">Liens rapides</h3>
                     <ul class="footer-links">
-                        <li><a href="index.html">Accueil</a></li>
-                        <li><a href="index.html#why">Pourquoi ce cours</a></li>
-                        <li><a href="index.html#modules">Modules du cours</a></li>
-                        <li><a href="index.html#tools">Boîte à outils</a></li>
-                        <li><a href="index.html#audience">Pour qui?</a></li>
+                        <li><a href="index.html" data-key="homeLink">Accueil</a></li>
+                        <li><a href="index.html#why" data-key="whyLink">Pourquoi ce cours</a></li>
+                        <li><a href="index.html#modules" data-key="modulesLink">Modules du cours</a></li>
+                        <li><a href="index.html#tools" data-key="toolsLink">Boîte à outils</a></li>
+                        <li><a href="index.html#audience" data-key="audienceLink">Pour qui?</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Contactez-nous</h3>
+                    <h3 data-key="contactUs">Contactez-nous</h3>
                     <ul class="footer-links">
                         <li><i class="fas fa-envelope"></i> Ayoubbnibourk728@gmail.com</li>
                         <li><i class="fas fa-phone"></i> +212674335326</li>
-                        <li><i class="fas fa-map-marker-alt"></i> El Jadida · Morocco</li>
+                        <li><i class="fas fa-map-marker-alt"></i> <span data-key="location">El Jadida · Morocco</span></li>
                         <li>
                             <i class="fas fa-globe"></i> 
                             <a href="https://bnitech.it.com/" target="_blank" style="color: #ccc; text-decoration: none;">
-                                Mon Portfolio
+                                <span data-key="portfolio">Mon Portfolio</span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 Fondamentaux de l'Automatisation Industrielle. Tous droits réservés.</p>
+                <p data-key="copyright">&copy; 2023 Fondamentaux de l'Automatisation Industrielle. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
     <script>
-              // Conditional Form Logic
+        // Language and Theme Management
+        const translations = {
+            fr: {
+                // Header
+                siteName: "Automatisation <span>Industrielle</span>",
+                currentLang: "FR",
+                
+                // Form
+                formTitle: "Enregistrement aux Programmes de Formation Professionnelle",
+                formDescription: "Veuillez remplir toutes les sections du formulaire avec exactitude. Vos réponses nous permettront de déterminer le meilleur parcours de formation PLC adapté à votre profil et à votre niveau d'expérience.",
+                
+                // Form fields
+                firstName: "Prénom",
+                firstNameError: "Veuillez entrer votre prénom",
+                lastName: "Nom",
+                lastNameError: "Veuillez entrer votre nom",
+                email: "Adresse e-mail",
+                emailError: "Veuillez entrer une adresse email valide",
+                phone: "Numéro de téléphone",
+                phoneError: "Veuillez entrer votre numéro de téléphone",
+                birthDate: "Date de naissance",
+                birthDateError: "Veuillez entrer votre date de naissance",
+                
+                // Status
+                currentStatus: "Quel est votre statut actuel ?",
+                studentStatus: "Je suis étudiant(e)",
+                workingStatus: "Je travaille",
+                otherStatus: "Autre",
+                statusError: "Veuillez sélectionner votre statut",
+                
+                // Conditional fields
+                studyField: "Quelle matière ou spécialité étudiez-vous actuellement ?",
+                jobTitle: "Quel est votre poste/titre de travail actuel ?",
+                
+                // Skills
+                automationLevel: "Votre niveau en Automatisation (sur une échelle de 1 à 10)",
+                automationLevelError: "Veuillez sélectionner votre niveau en automatisation",
+                
+                // Referral
+                referralSource: "Comment avez-vous entendu parler de nous ?",
+                website: "Site web",
+                other: "Autre",
+                referralError: "Veuillez indiquer comment vous avez entendu parler de nous",
+                
+                // Submit
+                submitButton: "Soumettre mon inscription",
+                loadingText: "Traitement en cours...",
+                
+                // Success message
+                successTitle: "Merci pour votre inscription!",
+                successMessage: "Nous avons bien reçu votre demande et nous vous contacterons très prochainement pour discuter du parcours de formation le plus adapté à votre profil.",
+                
+                // Footer
+                siteNameFooter: "Automatisation Industrielle",
+                footerDescription: "Maîtrisez la programmation d'automates, les systèmes de contrôle avancés et les communications industrielles essentielles pour une carrière très demandée.",
+                quickLinks: "Liens rapides",
+                homeLink: "Accueil",
+                whyLink: "Pourquoi ce cours",
+                modulesLink: "Modules du cours",
+                toolsLink: "Boîte à outils",
+                audienceLink: "Pour qui?",
+                contactUs: "Contactez-nous",
+                location: "El Jadida · Morocco",
+                portfolio: "Mon Portfolio",
+                copyright: "&copy; 2023 Fondamentaux de l'Automatisation Industrielle. Tous droits réservés."
+            },
+            en: {
+                // Header
+                siteName: "Industrial <span>Automation</span>",
+                currentLang: "EN",
+                
+                // Form
+                formTitle: "Registration for Professional Training Programs",
+                formDescription: "Please complete all sections of the form accurately. Your responses will help us determine the best PLC training path adapted to your profile and experience level.",
+                
+                // Form fields
+                firstName: "First Name",
+                firstNameError: "Please enter your first name",
+                lastName: "Last Name",
+                lastNameError: "Please enter your last name",
+                email: "Email Address",
+                emailError: "Please enter a valid email address",
+                phone: "Phone Number",
+                phoneError: "Please enter your phone number",
+                birthDate: "Date of Birth",
+                birthDateError: "Please enter your date of birth",
+                
+                // Status
+                currentStatus: "What is your current status?",
+                studentStatus: "I am a student",
+                workingStatus: "I am employed",
+                otherStatus: "Other",
+                statusError: "Please select your status",
+                
+                // Conditional fields
+                studyField: "What subject or specialty are you currently studying?",
+                jobTitle: "What is your current job title/position?",
+                
+                // Skills
+                automationLevel: "Your Automation Level (on a scale of 1 to 10)",
+                automationLevelError: "Please select your automation level",
+                
+                // Referral
+                referralSource: "How did you hear about us?",
+                website: "Website",
+                other: "Other",
+                referralError: "Please indicate how you heard about us",
+                
+                // Submit
+                submitButton: "Submit my registration",
+                loadingText: "Processing...",
+                
+                // Success message
+                successTitle: "Thank you for your registration!",
+                successMessage: "We have received your request and will contact you shortly to discuss the training path best suited to your profile.",
+                
+                // Footer
+                siteNameFooter: "Industrial Automation",
+                footerDescription: "Master PLC programming, advanced control systems, and essential industrial communications for a highly demanded career.",
+                quickLinks: "Quick Links",
+                homeLink: "Home",
+                whyLink: "Why this course",
+                modulesLink: "Course modules",
+                toolsLink: "Toolbox",
+                audienceLink: "For whom?",
+                contactUs: "Contact us",
+                location: "El Jadida · Morocco",
+                portfolio: "My Portfolio",
+                copyright: "&copy; 2023 Fundamentals of Industrial Automation. All rights reserved."
+            }
+        };
+
+        // Initialize theme and language
+        function initializePage() {
+            // Theme initialization
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+            
+            // Language initialization
+            const savedLang = localStorage.getItem('language') || 'fr';
+            setLanguage(savedLang);
+            
+            // Set up event listeners
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+        }
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+
+        function updateThemeIcon(theme) {
+            const themeIcon = document.querySelector('#themeToggle i');
+            themeIcon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // Language toggle functionality
+        function toggleLanguage() {
+            const currentLang = localStorage.getItem('language') || 'fr';
+            const newLang = currentLang === 'fr' ? 'en' : 'fr';
+            
+            setLanguage(newLang);
+            localStorage.setItem('language', newLang);
+        }
+
+        function setLanguage(lang) {
+            // Update all elements with data-key attributes
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    if (element.tagName === 'INPUT' && element.type !== 'submit') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+            
+            // Update the language toggle button text
+            document.querySelector('#langToggle span').textContent = translations[lang].currentLang;
+        }
+
+        // Conditional Form Logic
         document.addEventListener('DOMContentLoaded', function() {
+            initializePage();
+            
             // Status radio buttons
             const statusRadios = document.querySelectorAll('input[name="status"]');
             const studentDetails = document.getElementById('studentDetails');
@@ -772,7 +998,7 @@
             }
         });
 
-        // Form Validation Function - ADD THIS
+        // Form Validation Function
         function validateForm() {
             let isValid = true;
             
